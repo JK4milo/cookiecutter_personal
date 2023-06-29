@@ -1,7 +1,22 @@
-name: cookiecutter-personal
+# conda env create --file environment.yml
+name: {{ cookiecutter.project_slug }}
 channels:
+  - anaconda
   - conda-forge
   - defaults
 dependencies:
-  - cookiecutter=1.7.3
-prefix: C:\Users\user\anaconda3\envs\cookiecutter-personal
+  {% if cookiecutter.project_packages == "All" -%}
+  - fs
+  - jupyter
+  - jupyterlab
+  - pathlib
+  {% endif -%}
+  - pip
+  {% if cookiecutter.project_packages == "All" -%}
+  - pyprojroot
+  {% endif -%}
+  - python={{ cookiecutter.python_version }}
+  - pip:
+    {% if cookiecutter.project_packages == "All" -%}
+    - pyhere
+    {% endif -%}
